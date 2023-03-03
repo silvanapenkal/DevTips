@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Tips</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="devTips.ico">
+</head>
+<body>
+    <section id="esquerda">
+        <header>
+            <h1>DEV TIPS</h1>
+        </header>
+        <form id="formulario" >
+            <label for="titulo">Digite um título:</label>
+            <input id="titulo" type="text" class="form-control" placeholder="Digite um título" min="5" max="50">
+            <label for="linguagem">Digite uma Linguagem ou Skill:</label>
+            <input id="linguagem" type="text" class="form-control" placeholder="Digite uma Linguagem ou Skill" min="2" max="20">
+            <label for="categoria">Selecione uma categoria:</label>
+            <input list="categoria" placeholder="Selecione uma categoria">
+            <datalist id="categoria" min="1">
+                <option value="FrontEnd">
+                <option value="BackEnd">
+                <option value="FullStack">
+                <option value="Comportamental">
+            </datalist>
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" type="text" class="form-control" placeholder="Descreva aqui sua dica" min="10" max="600" rows="5"></textarea>
+            <label for="video">Vídeo no Youtube:</label>
+            <input id="video" type="text" class="form-control" placeholder="Link para vídeo no Youtube">
+            <div id="botoesFormulario">
+                <button onsubmit= "insereDica(titulo.value, linguagem.value, categoria.value, descricao.value, video.value)" id="salvar" type="submit" class="btn btn-primary">Salvar</button>
+                <button id="limpar" type="reset" class="btn btn-primary">Limpar</button>
+            </div>
+        </form>
+    </section>
+    <section id="direita">
+        <div id="totais">
+            <div id="totalGeral" class="totais">
+                <p>Total</p>
+            </div>
+            <div id="totalFrontEnd" class="totais">
+                <p>FrontEnd</p>
+            </div>
+            <div id="totalBackEnd" class="totais">
+                <p>BackEnd</p>
+            </div>
+            <div id="totalFullStack" class="totais">
+                <p>FullStack</p>
+            </div>
+            <div id="totalComportamental" class="totais">
+                <p>SoftSkills</p>
+            </div>
+        </div>
+        <div id="pesquisa">
+            <input id="palavraChave" type="text" placeholder="O que você procura?">
+            <button type="submit" class="btn btn-primary">Procurar</button>
+            <button type="submit" class="btn btn-primary">Fechar</button>
+        </div>
+        <div id="apresentacaoCartoes">
+            <div id="cartoesDeDicas" class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a class="btn btn-primary">Link</a>
+                    <a class="btn btn-primary">Editar</a>
+                    <a class="btn btn-primary">Apagar</a>
+                </div>
+            </div>
+            <div id="cartoesDeDicas" class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a class="btn btn-primary">Link</a>
+                    <a class="btn btn-primary">Editar</a>
+                    <a class="btn btn-primary">Apagar</a>
+                </div>
+            </div>
+            <div id="cartoesDeDicas" class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a class="btn btn-primary">Link</a>
+                    <a class="btn btn-primary">Editar</a>
+                    <a class="btn btn-primary">Apagar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="./script.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+</body>
+</html>
