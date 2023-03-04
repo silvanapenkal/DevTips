@@ -1,7 +1,10 @@
 # DevTips
 Terceiro projeto do DevinHouse - Ilog
 
-A aplicação que deverá ser realizada individualmente deve contemplar os seguintes requisitos:
+## INTRODUÇÃO
+
+
+## REQUISITOS
 
 1. Um título na aba do navegador, para que o usuário encontre a sua aplicação no meio
 das várias abas que constantemente mantém abertas;
@@ -10,29 +13,35 @@ das várias abas que constantemente mantém abertas;
 encontra e do que se trata o conteúdo;
 
 3. Um formulário para que o usuário cadastre a dica, contendo:
+
 a. Título:
 i. Preenchimento: Obrigatório
 ii. Tipo de campo: Input
 iii. Mínimo de caracteres: 5
 iv. Máximo de caracteres: 50
+
 b. Linguagem/Skill:
 i. Preenchimento: Obrigatório
 ii. Tipo de campo: Input
 iii. Mínimo de caracteres: 2
 iv. Máximo de caracteres: 20
+
 c. Categoria:
 i. Preenchimento: Obrigatório
 ii. Tipo de campo: Input Dropdown
 iii. Pré-Cadastrado: FrontEnd, BackEnd, FullStack e Comportamental
+
 d. Descrição:
 i. Preenchimento: Obrigatório
 ii. Tipo de campo: Input Text Area
 iii. Mínimo de caracteres: 10
 iv. Máximo de caracteres: 600
+
 e. Vídeo do YouTube:
 i. Preenchimento: Opcional
 ii. Tipo de campo: Input
 2iii. Caracteres: Validar URL
+
 f. Botões de ação:
 i. Botão Salvar para cadastrar caso as regras sejam atendidas
 ii. Botão Limpar para limpar os campos do formulário
@@ -45,6 +54,7 @@ categoria.
 título. Botões para pesquisar e limpar podem ser utilizados.
 
 6. Uma lista de dicas contendo todas as informações cadastradas.
+
 a. Usar cards para agrupar as informações
 b. Adicionar botão para deletar a dica
 c. Adicionar botão para editar a dica

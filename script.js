@@ -56,15 +56,11 @@ function atualizar(){
 
     let qtdadeRegistros = dadosLocalStorage.length;
 
-    
-
     console.log(dadosLocalStorage, qtdadeRegistros, dadosLocalStorage[0]);
+
+    dadosLocalStorage.map( (dica,index) => {
             
-    for (let i=0; i < qtdadeRegistros; i++) {
-
-
-        
-     
+      
             let cartao = document.createElement("div");
             cartao.className="card";
             divCards.appendChild(cartao);
@@ -72,33 +68,40 @@ function atualizar(){
             corpoCartao.className="card-body";
             cartao.appendChild(corpoCartao);
             let titulo = document.createElement("h5");
+            corpoCartao.appendChild(titulo);
             titulo.className="card-title";
-            // titulo.value=item.titulo;
-  
+            titulo.innerText = dica.titulo;
+            console.log(titulo);
+            let linguagem = document.createElement("p");
+            corpoCartao.appendChild(linguagem);
+            linguagem.className = "card-text";
+            linguagem.innerText = dica.linguagem;
+            let descricao= document.createElement("p");
+            corpoCartao.appendChild(descricao);
+            descricao.className = "card-text";
+            descricao.innerText = dica.descricao;
+            let editar = document.createElement("a");
+            corpoCartao.appendChild(editar);
+            editar.className = "btn btn-primary";
+            editar.id = "editar" + dica.id;
+            editar.innerText = "Editar";
+            let apagar = document.createElement("a");
+            corpoCartao.appendChild(apagar);
+            apagar.className = "btn btn-primary";
+            apagar.id = "apagar" + dica.id;
+            apagar.innerText = "Apagar";
+            let link = document.createElement("a");
+            corpoCartao.appendChild(link);
+            link.className = "btn btn-primary";
+            link.id = "link" + dica.id;
+            link.innerText = "Link";
 
-        
 
 
-            // let valor1= JSON.stringify(valor);
-
-            // let linhas = corpoTabela.rows.length;
-            // let linha = corpoTabela.insertRow(linhas);
-
-            // let musica = linha.insertCell(0);
-            // let cantor = linha.insertCell(1);
-
-            // musica.innerHTML = valor.nome;
-            // cantor.innerHTML = valor.cantor;
-            // botao = document.createElement("button");
-            // linha.appendChild(botao)
-            // botao.innerText = 'Apagar';
-
-            // botao.setAttribute('onclick','apagar (id)');
-            // botao.setAttribute('id','botao'+i);
-        
-            
-    } 
+        }
+    )
 }
+ 
 
 // function listar(){
 //     const divCards = document.getElementById("apresentacaoCartoes");
