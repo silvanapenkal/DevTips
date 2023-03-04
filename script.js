@@ -54,54 +54,71 @@ function atualizar(){
 
     let dadosLocalStorage = JSON.parse(localStorage.getItem("DevTips"));
 
-    let qtdadeRegistros = dadosLocalStorage.length;
-
-    console.log(dadosLocalStorage, qtdadeRegistros, dadosLocalStorage[0]);
-
     dadosLocalStorage.map( (dica,index) => {
             
       
             let cartao = document.createElement("div");
             cartao.className="card";
             divCards.appendChild(cartao);
+            cartao.id="cartao"+dica.id;
+
             let corpoCartao = document.createElement("div");
             corpoCartao.className="card-body";
             cartao.appendChild(corpoCartao);
+
             let titulo = document.createElement("h5");
             corpoCartao.appendChild(titulo);
             titulo.className="card-title";
             titulo.innerText = dica.titulo;
-            console.log(titulo);
+
             let linguagem = document.createElement("p");
             corpoCartao.appendChild(linguagem);
             linguagem.className = "card-text";
             linguagem.innerText = dica.linguagem;
+
             let descricao= document.createElement("p");
             corpoCartao.appendChild(descricao);
             descricao.className = "card-text";
             descricao.innerText = dica.descricao;
+
             let editar = document.createElement("a");
             corpoCartao.appendChild(editar);
             editar.className = "btn btn-primary";
             editar.id = "editar" + dica.id;
             editar.innerText = "Editar";
+
             let apagar = document.createElement("a");
             corpoCartao.appendChild(apagar);
             apagar.className = "btn btn-primary";
             apagar.id = "apagar" + dica.id;
             apagar.innerText = "Apagar";
+            apagar.setAttribute('onclick','apagar (id)');
+
             let link = document.createElement("a");
             corpoCartao.appendChild(link);
             link.className = "btn btn-primary";
             link.id = "link" + dica.id;
             link.innerText = "Link";
 
-
-
         }
     )
 }
  
+
+        function apagar(id){
+            let dadosLocalStorage = JSON.parse(localStorage.getItem("DevTips"));
+            let tamanhoId = id.length;
+            let identificacao = id.slice(6,tamanhoId);
+
+            if (window.confirm(`Você tem certeza que quer apagar id ${identificacao}`)){               
+                let valor = ("cartao"+identificacao);
+                localStorage.removeItem(valor);
+                let novoValorLocalStorage = dadosLocalStorage.slice(identificacao-1,identificacao);
+                console.log(valor, novoValorLocalStorage);
+                atualizar();
+            }
+            
+        }
 
 // function listar(){
 //     const divCards = document.getElementById("apresentacaoCartoes");
