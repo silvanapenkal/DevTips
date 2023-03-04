@@ -20,13 +20,12 @@
             <label for="linguagem">Digite uma Linguagem ou Skill:</label>
             <input id="linguagem" type="text" class="form-control" placeholder="Digite uma Linguagem ou Skill" min="2" max="20">
             <label for="categoria">Selecione uma categoria:</label>
-            <input list="categoria" placeholder="Selecione uma categoria">
-            <datalist id="categoria" min="1">
-                <option value="FrontEnd">
-                <option value="BackEnd">
-                <option value="FullStack">
-                <option value="Comportamental">
-            </datalist>
+            <select id="categoria" placeholder="Selecione uma categoria" min="1">
+                    <option data-value="FrontEnd" value="FrontEnd">FrontEnd</option>
+                    <option data-value="BackEnd" value="BackEnd">BackEnd</option>
+                    <option data-value="FullStack" value="FullStack">FullStack</option>
+                    <option data-value="Comportamental" value="Comportamental">Comportamental</option>        
+            </select>
             <label for="descricao">Descrição:</label>
             <textarea id="descricao" type="text" class="form-control" placeholder="Descreva aqui sua dica" min="10" max="600" rows="5"></textarea>
             <label for="video">Vídeo no Youtube:</label>
@@ -62,7 +61,8 @@
         </div>
         <div id="apresentacaoCartoes"></div>
     </section>
-    <script src="./script.js"></script>  
+    <script src="./script.js"></script> 
+    <!-- <script>carregar();</script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 </body>
 </html>

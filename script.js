@@ -1,10 +1,11 @@
 KEY_BD = "DevTips";
-var formulario = document.getElementById("formulario");
-var divCards = document.getElementById("apresentacaoCartoes");
+let formulario = document.getElementById("formulario");
+let divCards = document.getElementById("apresentacaoCartoes");
+let listaRegistros = new Array;
+
 
 formulario.addEventListener("submit", (e) => {
     e.preventDefault();
-    let listaRegistros = new Array;
     if (localStorage.hasOwnProperty("DevTips")) {
         listaRegistros = JSON.parse(localStorage.getItem("DevTips"))
     }
@@ -17,11 +18,19 @@ formulario.addEventListener("submit", (e) => {
     listaRegistros.push({
         id, titulo, linguagem, categoria, descricao, video
     })
-    localStorage.setItem(KEY_BD, JSON.stringify(listaRegistros));
+    gravar();
     atualizar();
 });
 
+window.addEventListener('load', () => {
+    const data = localStorage.getItem(KEY_BD)
+    data?listaRegistros = JSON.parse(data):null;
+    atualizar();
+})
 
+function carregar(){
+    dadosLocalStorage?atualizar():null;
+}
 
 function ler(){
     const data = localStorage.getItem(KEY_BD)
@@ -37,17 +46,8 @@ function pesquisar(value){
     desenhar()
 }
 
-function confirmarExclusao(id){
-    if(confirm('Você tem certeza que quer apagar a dica de id '+id)){
-        apagarDica(id)
-    }
-}
-
-function apagarDica (id){
-    listaRegistros.dicas= listaRegistros.dicas.filter( dica => {
-        return usuario.id != id
-    } )
-    gravarBD();
+function gravar(){
+    localStorage.setItem(KEY_BD, JSON.stringify(listaRegistros) )
 }
 
 function atualizar(){
@@ -55,7 +55,6 @@ function atualizar(){
     let dadosLocalStorage = JSON.parse(localStorage.getItem("DevTips"));
 
     dadosLocalStorage.map( (dica,index) => {
-            
       
             let cartao = document.createElement("div");
             cartao.className="card";
@@ -75,6 +74,11 @@ function atualizar(){
             corpoCartao.appendChild(linguagem);
             linguagem.className = "card-text";
             linguagem.innerText = dica.linguagem;
+
+            let categoria = document.createElement("p");
+            corpoCartao.appendChild(categoria);
+            categoria.className = "card-text";
+            categoria.innerText = dica.categoria;
 
             let descricao= document.createElement("p");
             corpoCartao.appendChild(descricao);
@@ -99,26 +103,34 @@ function atualizar(){
             link.className = "btn btn-primary";
             link.id = "link" + dica.id;
             link.innerText = "Link";
-
+            console.log(dica.videp);
+            link.setAttribute('href', dica.video);
+            console.log("oi",link.href);
         }
     )
 }
+
+function apagar(id){
+    let dadosLocalStorage = JSON.parse(localStorage.getItem("DevTips"));
+    let tamanhoId = id.length;
+    let identificacao = id.slice(6,tamanhoId);
+    if (window.confirm(`Você tem certeza que quer apagar a dica ${identificacao}`)){               
+            const apagarDica = dadosLocalStorage.filter((dica, index, arr) => {
+            arr.pop();
+            console.log(identificacao, index,dica.id);
+            return dica.id != identificacao;
+        });
+        let valor = ("cartao"+identificacao);
+        let filho = document.getElementById(valor);
+        divCards.removeChild(filho);
+        console.log(apagarDica);
+        localStorage.setItem(KEY_BD, JSON.stringify(apagarDica));
+        atualizar();
+    }
+}
  
 
-        function apagar(id){
-            let dadosLocalStorage = JSON.parse(localStorage.getItem("DevTips"));
-            let tamanhoId = id.length;
-            let identificacao = id.slice(6,tamanhoId);
-
-            if (window.confirm(`Você tem certeza que quer apagar id ${identificacao}`)){               
-                let valor = ("cartao"+identificacao);
-                localStorage.removeItem(valor);
-                let novoValorLocalStorage = dadosLocalStorage.slice(identificacao-1,identificacao);
-                console.log(valor, novoValorLocalStorage);
-                atualizar();
-            }
-            
-        }
+  
 
 // function listar(){
 //     const divCards = document.getElementById("apresentacaoCartoes");
