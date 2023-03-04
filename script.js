@@ -9,7 +9,9 @@ formulario.addEventListener("submit", (e) => {
     if (localStorage.hasOwnProperty("DevTips")) {
         listaRegistros = JSON.parse(localStorage.getItem("DevTips"))
     }
-    let id = listaRegistros.length+1;
+    console.log(listaRegistros.length);
+    let id = 1;
+    (listaRegistros.length>0) ? id = listaRegistros[listaRegistros.length-1].id+1 : null;
     let titulo = document.getElementById("titulo").value;
     let linguagem = document.getElementById("linguagem").value;
     let categoria = document.getElementById("categoria").value;
@@ -18,18 +20,19 @@ formulario.addEventListener("submit", (e) => {
     listaRegistros.push({
         id, titulo, linguagem, categoria, descricao, video
     })
+    console.log(listaRegistros);
     gravar();
-    atualizar();
+    acrescentarCard(id, titulo, linguagem, categoria, descricao, video);
 });
 
 window.addEventListener('load', () => {
     const data = localStorage.getItem(KEY_BD)
     data?listaRegistros = JSON.parse(data):null;
-    atualizar();
+    inicializarCards();
 })
 
 function carregar(){
-    dadosLocalStorage?atualizar():null;
+    dadosLocalStorage?inicializarCards():null;
 }
 
 function ler(){
@@ -50,7 +53,7 @@ function gravar(){
     localStorage.setItem(KEY_BD, JSON.stringify(listaRegistros) )
 }
 
-function atualizar(){
+function inicializarCards(){
 
     let dadosLocalStorage = JSON.parse(localStorage.getItem("DevTips"));
 
@@ -103,31 +106,86 @@ function atualizar(){
             link.className = "btn btn-primary";
             link.id = "link" + dica.id;
             link.innerText = "Link";
-            console.log(dica.videp);
             link.setAttribute('href', dica.video);
-            console.log("oi",link.href);
         }
     )
+}
+
+function acrescentarCard(novoId, novoTitulo, novaLinguagem, novaCategoria, novaDescricao, novoVideo){
+
+            let cartao = document.createElement("div");
+            cartao.className="card";
+            divCards.appendChild(cartao);
+            cartao.id="cartao"+novoId;
+
+            let corpoCartao = document.createElement("div");
+            corpoCartao.className="card-body";
+            cartao.appendChild(corpoCartao);
+
+            let titulo = document.createElement("h5");
+            corpoCartao.appendChild(titulo);
+            titulo.className="card-title";
+            titulo.innerText = novoTitulo;
+
+            let linguagem = document.createElement("p");
+            corpoCartao.appendChild(linguagem);
+            linguagem.className = "card-text";
+            linguagem.innerText = novaLinguagem;
+
+            let categoria = document.createElement("p");
+            corpoCartao.appendChild(categoria);
+            categoria.className = "card-text";
+            categoria.innerText = novaCategoria;
+
+            let descricao= document.createElement("p");
+            corpoCartao.appendChild(descricao);
+            descricao.className = "card-text";
+            descricao.innerText = novaDescricao;
+
+            let editar = document.createElement("a");
+            corpoCartao.appendChild(editar);
+            editar.className = "btn btn-primary";
+            editar.id = "editar" + novoId;
+            editar.innerText = "Editar";
+
+            let apagar = document.createElement("a");
+            corpoCartao.appendChild(apagar);
+            apagar.className = "btn btn-primary";
+            apagar.id = "apagar" + novoId;
+            apagar.innerText = "Apagar";
+            apagar.setAttribute('onclick','apagar (id)');
+
+            let link = document.createElement("a");
+            corpoCartao.appendChild(link);
+            link.className = "btn btn-primary";
+            link.id = "link" + novoId;
+            link.innerText = "Link";
+            link.setAttribute('href', novoVideo);
+
+
 }
 
 function apagar(id){
     let dadosLocalStorage = JSON.parse(localStorage.getItem("DevTips"));
     let tamanhoId = id.length;
     let identificacao = id.slice(6,tamanhoId);
-    if (window.confirm(`Você tem certeza que quer apagar a dica ${identificacao}`)){               
-            const apagarDica = dadosLocalStorage.filter((dica, index, arr) => {
-            arr.pop();
-            console.log(identificacao, index,dica.id);
-            return dica.id != identificacao;
-        });
-        let valor = ("cartao"+identificacao);
-        let filho = document.getElementById(valor);
-        divCards.removeChild(filho);
-        console.log(apagarDica);
-        localStorage.setItem(KEY_BD, JSON.stringify(apagarDica));
-        atualizar();
-    }
+    if (window.confirm(`Você tem certeza que quer apagar a dica ${identificacao}`)) {               
+        dadosLocalStorage = dadosLocalStorage.filter( dica => { return dica.id != identificacao } );
+    };
+    localStorage.setItem(KEY_BD, JSON.stringify(dadosLocalStorage));
+
+    // if (window.confirm(`Você tem certeza que quer apagar a dica ${identificacao}`)){               
+    //         const apagarDica = dadosLocalStorage.filter(dica => (dica.id != identificacao));
+    //         return apagarDica}
+    let valor = ("cartao"+identificacao);
+    console.log(valor)
+    let filho = document.getElementById(valor);
+    divCards.removeChild(filho);
+    
+    
+        // window.location.reload(true);
 }
+
  
 
   

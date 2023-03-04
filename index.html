@@ -12,14 +12,14 @@
 <body>
     <section id="esquerda">
         <header>
-            <h1>DEV TIPS</h1>
+            <h1>Dev Tips</h1>
         </header>
         <form id="formulario" >
             <label for="titulo">Digite um título:</label>
-            <input id="titulo" type="text" class="form-control" placeholder="Digite um título" min="5" max="50">
+            <input id="titulo" type="text" class="form-control" placeholder="Digite um título" minlength="5" maxlength="50" required="required">
             <label for="linguagem">Digite uma Linguagem ou Skill:</label>
-            <input id="linguagem" type="text" class="form-control" placeholder="Digite uma Linguagem ou Skill" min="2" max="20">
-            <label for="categoria">Selecione uma categoria:</label>
+            <input id="linguagem" type="text" class="form-control" placeholder="Digite uma Linguagem ou Skill" minlength="2" maxlength="20" required="required">
+            <label for="categoria" minlength="5" maxlength="50" required="required" aria-placeholder="Selecione a categoria">Selecione uma categoria:</label>
             <select id="categoria" placeholder="Selecione uma categoria" min="1">
                     <option data-value="FrontEnd" value="FrontEnd">FrontEnd</option>
                     <option data-value="BackEnd" value="BackEnd">BackEnd</option>
@@ -27,9 +27,9 @@
                     <option data-value="Comportamental" value="Comportamental">Comportamental</option>        
             </select>
             <label for="descricao">Descrição:</label>
-            <textarea id="descricao" type="text" class="form-control" placeholder="Descreva aqui sua dica" min="10" max="600" rows="5"></textarea>
+            <textarea id="descricao" type="text" class="form-control" placeholder="Descreva aqui sua dica" minlength="10" maxlength="600" rows="5" required="required"></textarea>
             <label for="video">Vídeo no Youtube:</label>
-            <input id="video" type="text" class="form-control" placeholder="Link para vídeo no Youtube">
+            <input id="video" type="url" class="form-control" placeholder="Link para vídeo no Youtube">
             <div id="botoesFormulario">
                 <button onsubmit= "insereDica(titulo.value, linguagem.value, categoria.value, descricao.value, video.value)" id="salvar" type="submit" class="btn btn-primary">Salvar</button>
                 <button id="limpar" type="reset" class="btn btn-primary">Limpar</button>
