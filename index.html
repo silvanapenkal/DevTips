@@ -40,24 +40,29 @@
         <div id="totais">
             <div id="totalGeral" class="totais">
                 <p>Total</p>
+                <p class="resultado-soma" id="somaDicas"></p>
             </div>
             <div id="totalFrontEnd" class="totais">
                 <p>FrontEnd</p>
+                <p class="resultado-soma" id="somaFrontend"></p>
             </div>
             <div id="totalBackEnd" class="totais">
                 <p>BackEnd</p>
+                <p class="resultado-soma" id="somaBackend"></p>
             </div>
             <div id="totalFullStack" class="totais">
                 <p>FullStack</p>
+                <p class="resultado-soma" id="somaFullstack"></p>
             </div>
             <div id="totalComportamental" class="totais">
                 <p>SoftSkills</p>
+                <p class="resultado-soma" id="somaSoftskills"></p>
             </div>
         </div>
         <div id="pesquisa">
-            <input id="palavraChave" type="text" placeholder="O que você procura?">
-            <button type="submit" class="btn btn-primary">Procurar</button>
-            <button type="submit" class="btn btn-primary">Fechar</button>
+            <input id="palavraChave" type="text" placeholder="O que você procura?" onkeyup="pesquisar(palavraChave.value)">
+            <button type="submit" class="btn btn-primary" onclick="pesquisar(palavraChave.value)">Procurar</button>
+            <button type="submit" class="btn btn-primary" onclick="ler()">Fechar</button>
         </div>
         <div id="apresentacaoCartoes"></div>
     </section>

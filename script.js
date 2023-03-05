@@ -9,7 +9,6 @@ formulario.addEventListener("submit", (e) => {
     if (localStorage.hasOwnProperty("DevTips")) {
         listaRegistros = JSON.parse(localStorage.getItem("DevTips"))
     }
-    console.log(listaRegistros.length);
     let id = 1;
     (listaRegistros.length>0) ? id = listaRegistros[listaRegistros.length-1].id+1 : null;
     let titulo = document.getElementById("titulo").value;
@@ -20,7 +19,6 @@ formulario.addEventListener("submit", (e) => {
     listaRegistros.push({
         id, titulo, linguagem, categoria, descricao, video
     })
-    console.log(listaRegistros);
     gravar();
     acrescentarCard(id, titulo, linguagem, categoria, descricao, video);
 });
@@ -28,34 +26,34 @@ formulario.addEventListener("submit", (e) => {
 window.addEventListener('load', () => {
     const data = localStorage.getItem(KEY_BD)
     data?listaRegistros = JSON.parse(data):null;
-    inicializarCards();
+    inicializarCards(listaRegistros);
 })
 
-function carregar(){
-    dadosLocalStorage?inicializarCards():null;
-}
+// function carregar(){
+//     dadosLocalStorage?inicializarCards():null;
+// }
 
 function ler(){
-    const data = localStorage.getItem(KEY_BD)
-    if(data){
-        listaRegistros = JSON.parse(data)
+    const localStorage = localStorage.getItem(KEY_BD)
+    if(localStorage){
+        listaRegistros = JSON.parse(localStorage)
     }
-    desenhar()
+    inicializarCards(listaRegistros)
 }
 
 
-function pesquisar(value){
-    FILTRO = value;
-    desenhar()
-}
+// function pesquisar(value){
+//     FILTRO = value;
+//     listar();
+// }
 
 function gravar(){
     localStorage.setItem(KEY_BD, JSON.stringify(listaRegistros) )
 }
 
-function inicializarCards(){
+function inicializarCards(dadosLocalStorage){
 
-    let dadosLocalStorage = JSON.parse(localStorage.getItem("DevTips"));
+    // let dadosLocalStorage = dadosLocalStorage;
 
     dadosLocalStorage.map( (dica,index) => {
       
@@ -109,6 +107,36 @@ function inicializarCards(){
             link.setAttribute('href', dica.video);
         }
     )
+
+    totalBackend =  (dadosLocalStorage.filter( dica => { return dica.categoria == "BackEnd" } )).length;
+    totalFrontend =  (dadosLocalStorage.filter( dica => { return dica.categoria == "FrontEnd" } )).length;
+    totalFullstack =  (dadosLocalStorage.filter( dica => { return dica.categoria == "FullStack" } )).length;
+    totalComportamental =  (dadosLocalStorage.filter( dica => { return dica.categoria == "Comportamental" } )).length;
+    total =  dadosLocalStorage.length;
+
+    listaBackend =  (dadosLocalStorage.filter( dica => { return dica.categoria = "BackEnd" } ));
+    console.log(listaBackend);
+
+ 
+
+    let backend = document.getElementById("somaBackend");
+    backend.innerText = totalBackend;
+
+    let frontend = document.getElementById("somaFrontend");
+    frontend.innerText = totalFrontend;
+
+    let fullstack = document.getElementById("somaFullstack");
+    fullstack.innerText = totalFullstack;
+
+    let softskills = document.getElementById("somaSoftskills");
+    softskills.innerText = totalComportamental;
+
+    let todas = document.getElementById("somaDicas");
+    todas.innerText = total;
+
+
+
+    
 }
 
 function acrescentarCard(novoId, novoTitulo, novaLinguagem, novaCategoria, novaDescricao, novoVideo){
@@ -173,48 +201,30 @@ function apagar(id){
         dadosLocalStorage = dadosLocalStorage.filter( dica => { return dica.id != identificacao } );
     };
     localStorage.setItem(KEY_BD, JSON.stringify(dadosLocalStorage));
-
-    // if (window.confirm(`Você tem certeza que quer apagar a dica ${identificacao}`)){               
-    //         const apagarDica = dadosLocalStorage.filter(dica => (dica.id != identificacao));
-    //         return apagarDica}
     let valor = ("cartao"+identificacao);
     console.log(valor)
     let filho = document.getElementById(valor);
-    divCards.removeChild(filho);
-    
-    
-        // window.location.reload(true);
+    divCards.removeChild(filho); 
 }
 
- 
+function pesquisar(value){
+    let filtro = value;
+    console.log(filtro);
+    let dadosLocalStorage = JSON.parse(localStorage.getItem("DevTips"));
+    const divCards = document.getElementById("apresentacaoCartoes");
+    
+        
 
-  
-
-// function listar(){
-//     const divCards = document.getElementById("apresentacaoCartoes");
-//     if(divCards){
-//         var data = listaRegistros.dicas;
-//         if(FILTRO.trim()){
-//             const expReg = eval(`/${FILTRO.trim().replace(/[^\d\w]+/g,'.*')}/i`)
-//             data = data.filter( usuario => {
-//                 return expReg.test( usuario.nome ) || expReg.test( usuario.fone )
-//             } )
-//         }
-//         data = data
-//             .sort( (a, b) => {
-//                 return a.nome < b.nome ? -1 : 1
-//             })
-//             .map( usuario => {
-//                 return `<tr>
-//                         <td>${usuario.id}</td>
-//                         <td>${usuario.nome}</td>
-//                         <td>${usuario.fone}</td>
-//                         <td>
-//                             <button onclick='vizualizar("cadastro",false,${usuario.id})'>Editar</button>
-//                             <button class='vermelho' onclick='perguntarSeDeleta(${usuario.id})'>Deletar</button>
-//                         </td>
-//                     </tr>`
-//             } )
-//         tbody.innerHTML = data.join('')
-//     }
-// }
+        if(filtro.trim()){
+            divCards.innerHTML ="";
+            const expReg = eval(`/${filtro.trim().replace(/[^\d\w]+/g,'.*')}/i`)
+            console.log(expReg);
+            dadosLocalStorage = dadosLocalStorage.filter( dica => {
+                return expReg.test( dica.titulo ) || expReg.test( dica.categoria) || expReg.test( dica.descricao) || expReg.test( dica.linguagem)
+            } )
+            // } 
+            
+        }
+        inicializarCards(dadosLocalStorage);
+        
+    }
