@@ -3,6 +3,14 @@ Terceiro projeto do DevinHouse - Ilog
 
 ## INTRODUÇÃO
 
+A LAB School, uma renomada escola de desenvolvimento de software, está iniciando 10
+novas turmas no decorrer do próximo mês. Os professores entendem que com a chegada
+dos novos alunos, será necessária a utilização de um software para que eles possam
+cadastrar as dicas de programação que irão aprender no dia a dia das aulas. Para isso, foi
+solicitado a criação de um sistema chamado DEVtips, com objetivo de manter as dicas e
+padronização de código em um único lugar de fácil acesso.
+Mãos à Obra! Pois você foi escolhido como desenvolvedor responsável pela criação da
+aplicação que deverá ser escrita com HTML, CSS e JavaScript.
 
 ## REQUISITOS
 
@@ -72,3 +80,8 @@ Por exemplo: "Você realmente deseja deletar essa dica?"
 
 9. Lógica de programação para manipulação dos dados inseridos em um array json com
 salvamento em localStorage ou em um servidor utilizando json-server.
+
+## EXTRAS
+
+100% de acessibilidade na avaliação do Lighthouse
+Responsividade

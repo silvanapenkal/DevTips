@@ -4,16 +4,6 @@ let divCards = document.getElementById("apresentacaoCartoes");
 let listaRegistros = new Array;
 let identificacao;
 
- // selecione o modal pelo seu ID
- var modal = document.querySelector('#myModal');
-
- // adicione um ouvinte de evento para o evento "show.bs.modal"
- modal.addEventListener('show.bs.modal', function (event) {
-   // código para ser executado quando o modal é exibido
-   let titulo = document.getElementById("edicaoTitulo");
-    titulo.innerText = "oi";
- });
-
 function ler(){
     if (localStorage.hasOwnProperty(KEY_BD)) {
         listaRegistros = JSON.parse(localStorage.getItem(KEY_BD))
@@ -44,6 +34,11 @@ window.addEventListener('load', () => {
 })
 
 function inicializarCards(dadosLocalStorage){
+    console.log(dadosLocalStorage);
+    dadosLocalStorage = dadosLocalStorage.sort( (a, b) => {
+        return parseInt(a.id) < parseInt(b.id) ? -1 : 1
+    })
+    console.log(dadosLocalStorage);
     dadosLocalStorage.map( (dica) => {
         acrescentarCard(dica.id, dica.titulo, dica.linguagem, dica.categoria, dica.descricao, dica.video)            
     })
@@ -135,14 +130,14 @@ function apagar(id){
     let dadosLocalStorage = JSON.parse(localStorage.getItem(KEY_BD));
     let tamanhoId = id.length;
     let identificacao = id.slice(6,tamanhoId);
-    if (window.confirm(`Você tem certeza que quer apagar a dica ${identificacao}`)) {               
+    if (window.confirm(`Você tem certeza que quer apagar essa dica?`)) {               
         dadosLocalStorage = dadosLocalStorage.filter( dica => { return dica.id != identificacao } );
     };
     localStorage.setItem(KEY_BD, JSON.stringify(dadosLocalStorage));
     let valor = ("cartao"+identificacao);
     let filho = document.getElementById(valor);
     divCards.removeChild(filho); 
-    calcularTotais(dadosLocalStorage);
+    inicializarCards(dadosLocalStorage);
 }
 
 function pesquisar(value) {
@@ -174,18 +169,20 @@ function editar(id) {
 
 }
 
-function editaDica() {
+function editaDica(titulo, linguagem, categoria, descricao, video) {
+    e.preventDefault();
     let dicaEditada = {
         "id": identificacao,
-        "categoria": document.getElementById("edicaoCategoria").value,
-        "titulo": document.getElementById("edicaoTitulo").value,
-        "video": document.getElementById("edicaoVideo").value,
-        "descricao": document.getElementById("edicaoDescricao").value,
-        "linguagem": document.getElementById("edicaoLinguagem").value
+        "categoria": categoria,
+        "titulo": titulo,
+        "video": video,
+        "descricao": descricao,
+        "linguagem": linguagem
     }
+    console.log(dicaEditada);
     let posicao = dadosLocalStorage.findIndex(localStorage.id == dicaEditada.id);
     let dadosLocalStorage = JSON.parse(localStorage.getItem(KEY_BD));
-    dadosLocalStorage.splice(posicao, 1, dicaEditada);
+    dadosLocalStorage = dadosLocalStorage.splice(posicao, 1, dicaEditada);
     localStorage.setItem(KEY_BD, JSON.stringify(dadosLocalStorage));
-    calcularTotais(dadosLocalStorage);
+    inicializarCards(dadosLocalStorage);
 }

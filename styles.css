@@ -8,6 +8,10 @@ body {
     background-color: orange;
 }
 
+h1{
+    color: #0074d9;
+}
+
 #esquerda {
     display: flex;
     flex-direction: column;
@@ -82,8 +86,6 @@ body {
         width: 100%;
     }
     #totais {
-        border-color: black;
-        float: right;
         gap:2px;
     }
 }
