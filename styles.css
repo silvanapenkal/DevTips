@@ -1,6 +1,7 @@
 body {
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
     width: 100%;
     padding: 8px 8px 8px 8px;
     gap: 20px;

@@ -3,12 +3,19 @@ let formulario = document.getElementById("formulario");
 let divCards = document.getElementById("apresentacaoCartoes");
 let listaRegistros = new Array;
 
-
-formulario.addEventListener("submit", (e) => {
-    e.preventDefault();
+function ler(){
     if (localStorage.hasOwnProperty("DevTips")) {
         listaRegistros = JSON.parse(localStorage.getItem("DevTips"))
     }
+}
+
+function gravar(){
+    localStorage.setItem(KEY_BD, JSON.stringify(listaRegistros) )
+}
+
+formulario.addEventListener("submit", (e) => {
+    e.preventDefault();
+    ler();
     let id = 1;
     (listaRegistros.length>0) ? id = listaRegistros[listaRegistros.length-1].id+1 : null;
     let titulo = document.getElementById("titulo").value;
@@ -24,22 +31,9 @@ formulario.addEventListener("submit", (e) => {
 });
 
 window.addEventListener('load', () => {
-    const data = localStorage.getItem(KEY_BD)
-    data?listaRegistros = JSON.parse(data):null;
+    ler();
     inicializarCards(listaRegistros);
 })
-
-function ler(){
-    const localStorage = localStorage.getItem(KEY_BD)
-    if(localStorage){
-        listaRegistros = JSON.parse(localStorage)
-    }
-    inicializarCards(listaRegistros)
-}
-
-function gravar(){
-    localStorage.setItem(KEY_BD, JSON.stringify(listaRegistros) )
-}
 
 function inicializarCards(dadosLocalStorage){
 
@@ -133,7 +127,7 @@ function apagar(id){
     if (window.confirm(`Você tem certeza que quer apagar a dica ${identificacao}`)) {               
         dadosLocalStorage = dadosLocalStorage.filter( dica => { return dica.id != identificacao } );
     };
-    localStorage.setItem(KEY_BD, JSON.stringify(dadosLocalStorage));
+    gravar();
     let valor = ("cartao"+identificacao);
     let filho = document.getElementById(valor);
     divCards.removeChild(filho); 
@@ -143,13 +137,12 @@ function pesquisar(value){
     let filtro = value;
     let dadosLocalStorage = JSON.parse(localStorage.getItem("DevTips"));
     const divCards = document.getElementById("apresentacaoCartoes");
-        if(filtro.trim()){
-            divCards.innerHTML ="";
-            const expReg = eval(`/${filtro.trim().replace(/[^\d\w]+/g,'.*')}/i`)
-            dadosLocalStorage = dadosLocalStorage.filter( dica => {
-                return expReg.test( dica.titulo ) || expReg.test( dica.categoria) || expReg.test( dica.descricao) || expReg.test( dica.linguagem)
-            } )      
-        }
-        inicializarCards(dadosLocalStorage);
-        
+    if(filtro.trim()){
+        divCards.innerHTML ="";
+        const expReg = eval(`/${filtro.trim().replace(/[^\d\w]+/g,'.*')}/i`)
+        dadosLocalStorage = dadosLocalStorage.filter( dica => {
+            return expReg.test( dica.titulo ) || expReg.test( dica.categoria) || expReg.test( dica.descricao) || expReg.test( dica.linguagem)
+        })
     }
+    inicializarCards(dadosLocalStorage);
+}

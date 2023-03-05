@@ -21,7 +21,7 @@
             <input id="titulo" type="text" class="form-control" placeholder="Digite um título" minlength="5" maxlength="50" required="required">
             <label for="linguagem">Digite uma Linguagem ou Skill:</label>
             <input id="linguagem" type="text" class="form-control" placeholder="Digite uma Linguagem ou Skill" minlength="2" maxlength="20" required="required">
-            <label for="categoria" minlength="5" maxlength="50" required="required" aria-placeholder="Selecione a categoria">Selecione uma categoria:</label>
+            <label for="categoria" minlength="5" maxlength="50" required="required" aria-label="Selecione a categoria">Selecione uma categoria:</label>
             <select id="categoria" placeholder="Selecione uma categoria" required="required">
                     <option data-value="FrontEnd" value="FrontEnd">FrontEnd</option>
                     <option data-value="BackEnd" value="BackEnd">BackEnd</option>
@@ -79,7 +79,7 @@
                     <input id="edicaoTitulo" type="text" class="form-control" placeholder="Digite um título" minlength="5" maxlength="50" required="required">
                     <label for="edicaoLinguagem">Digite uma Linguagem ou Skill:</label>
                     <input id="edicaoLinguagem" type="text" class="form-control" placeholder="Digite uma Linguagem ou Skill" minlength="2" maxlength="20" required="required">
-                    <label for="edicaoCategoria" minlength="5" maxlength="50" required="required" aria-placeholder="Selecione a categoria">Selecione uma categoria:</label>
+                    <label for="edicaoCategoria" minlength="5" maxlength="50" required="required" aria-label="Selecione uma categoria">Selecione uma categoria:</label>
                     <select id="EdicaoCategoria" placeholder="Selecione uma categoria" required="required">
                             <option data-value="FrontEnd" value="FrontEnd">FrontEnd</option>
                             <option data-value="BackEnd" value="BackEnd">BackEnd</option>
@@ -91,8 +91,8 @@
                     <label for="edicaoVideo">Vídeo no Youtube:</label>
                     <input id="edicaoVideo" type="url" class="form-control" placeholder="Link para vídeo no Youtube">
                     <div id="botoesFormulario">
-                        <button onsubmit= "insereDica(titulo.value, linguagem.value, categoria.value, descricao.value, video.value)" id="salvar" type="submit" class="btn btn-primary">Salvar</button>
-                        <button id="limpar" type="reset" class="btn btn-primary">Limpar</button>
+                        <button onsubmit= "insereDica(titulo.value, linguagem.value, categoria.value, descricao.value, video.value)" id="salvarEdicao" type="submit" class="btn btn-primary">Salvar</button>
+                        <button id="limparEdicao" type="reset" class="btn btn-primary">Limpar</button>
                     </div>
                 </form>
             </div>
