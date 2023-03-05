@@ -22,7 +22,7 @@
             <label for="linguagem">Digite uma Linguagem ou Skill:</label>
             <input id="linguagem" type="text" class="form-control" placeholder="Digite uma Linguagem ou Skill" minlength="2" maxlength="20" required="required">
             <label for="categoria" minlength="5" maxlength="50" required="required" aria-placeholder="Selecione a categoria">Selecione uma categoria:</label>
-            <select id="categoria" placeholder="Selecione uma categoria" min="1">
+            <select id="categoria" placeholder="Selecione uma categoria" required="required">
                     <option data-value="FrontEnd" value="FrontEnd">FrontEnd</option>
                     <option data-value="BackEnd" value="BackEnd">BackEnd</option>
                     <option data-value="FullStack" value="FullStack">FullStack</option>
@@ -74,7 +74,27 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <p>Modal body text goes here.</p>
+                <form id="formulario" >
+                    <label for="edicaoTitulo">Digite um título:</label>
+                    <input id="edicaoTitulo" type="text" class="form-control" placeholder="Digite um título" minlength="5" maxlength="50" required="required">
+                    <label for="edicaoLinguagem">Digite uma Linguagem ou Skill:</label>
+                    <input id="edicaoLinguagem" type="text" class="form-control" placeholder="Digite uma Linguagem ou Skill" minlength="2" maxlength="20" required="required">
+                    <label for="edicaoCategoria" minlength="5" maxlength="50" required="required" aria-placeholder="Selecione a categoria">Selecione uma categoria:</label>
+                    <select id="EdicaoCategoria" placeholder="Selecione uma categoria" required="required">
+                            <option data-value="FrontEnd" value="FrontEnd">FrontEnd</option>
+                            <option data-value="BackEnd" value="BackEnd">BackEnd</option>
+                            <option data-value="FullStack" value="FullStack">FullStack</option>
+                            <option data-value="Comportamental" value="Comportamental">Comportamental</option>        
+                    </select>
+                    <label for="edicaoDescricao">Descrição:</label>
+                    <textarea id="edicaoDescricao" type="text" class="form-control" placeholder="Descreva aqui sua dica" minlength="10" maxlength="600" rows="5" required="required"></textarea>
+                    <label for="edicaoVideo">Vídeo no Youtube:</label>
+                    <input id="edicaoVideo" type="url" class="form-control" placeholder="Link para vídeo no Youtube">
+                    <div id="botoesFormulario">
+                        <button onsubmit= "insereDica(titulo.value, linguagem.value, categoria.value, descricao.value, video.value)" id="salvar" type="submit" class="btn btn-primary">Salvar</button>
+                        <button id="limpar" type="reset" class="btn btn-primary">Limpar</button>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -84,7 +104,6 @@
         </div>
       </div>
     <script src="./script.js"></script> 
-    <!-- <script>carregar();</script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -105,8 +105,8 @@ function acrescentarCard(novoId, novoTitulo, novaLinguagem, novaCategoria, novaD
     editar.className = "btn btn-primary";
     editar.id = "editar" + novoId;
     editar.innerText = "Editar";
-    editar.setAttribute("data-bs-toggle","myModal");
-    editar.setAttribute("data-bs-target","#exampleModal");
+    editar.setAttribute("data-bs-toggle","modal");
+    editar.setAttribute("data-bs-target","#myModal");
 
     let apagar = document.createElement("button");
     corpoCartao.appendChild(apagar);
@@ -153,10 +153,3 @@ function pesquisar(value){
         inicializarCards(dadosLocalStorage);
         
     }
-
-    const myModal = document.getElementById('myModal')
-    const myInput = document.getElementById('editar1')
-    
-    myModal.addEventListener('shown.bs.modal', () => {
-      editar1.focus()
-    })
