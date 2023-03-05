@@ -44,57 +44,8 @@ function gravar(){
 function inicializarCards(dadosLocalStorage){
 
     dadosLocalStorage.map( (dica,index) => {
-      
-            let cartao = document.createElement("div");
-            cartao.className="card";
-            divCards.appendChild(cartao);
-            cartao.id="cartao"+dica.id;
-
-            let corpoCartao = document.createElement("div");
-            corpoCartao.className="card-body";
-            cartao.appendChild(corpoCartao);
-
-            let titulo = document.createElement("h5");
-            corpoCartao.appendChild(titulo);
-            titulo.className="card-title";
-            titulo.innerText = dica.titulo;
-
-            let linguagem = document.createElement("p");
-            corpoCartao.appendChild(linguagem);
-            linguagem.className = "card-text";
-            linguagem.innerText = dica.linguagem;
-
-            let categoria = document.createElement("p");
-            corpoCartao.appendChild(categoria);
-            categoria.className = "card-text";
-            categoria.innerText = dica.categoria;
-
-            let descricao= document.createElement("p");
-            corpoCartao.appendChild(descricao);
-            descricao.className = "card-text";
-            descricao.innerText = dica.descricao;
-
-            let editar = document.createElement("a");
-            corpoCartao.appendChild(editar);
-            editar.className = "btn btn-primary";
-            editar.id = "editar" + dica.id;
-            editar.innerText = "Editar";
-
-            let apagar = document.createElement("a");
-            corpoCartao.appendChild(apagar);
-            apagar.className = "btn btn-primary";
-            apagar.id = "apagar" + dica.id;
-            apagar.innerText = "Apagar";
-            apagar.setAttribute('onclick','apagar (id)');
-
-            let link = document.createElement("a");
-            corpoCartao.appendChild(link);
-            link.className = "btn btn-primary";
-            link.id = "link" + dica.id;
-            link.innerText = "Link";
-            link.setAttribute('href', dica.video);
-        }
-    )
+        acrescentarCard(dica.id, dica.titulo, dica.linguagem, dica.categoria, dica.descricao, dica.video)            
+    })
 
     totalBackend =  (dadosLocalStorage.filter( dica => { return dica.categoria == "BackEnd" } )).length;
     totalFrontend =  (dadosLocalStorage.filter( dica => { return dica.categoria == "FrontEnd" } )).length;
@@ -120,55 +71,59 @@ function inicializarCards(dadosLocalStorage){
 
 function acrescentarCard(novoId, novoTitulo, novaLinguagem, novaCategoria, novaDescricao, novoVideo){
 
-            let cartao = document.createElement("div");
-            cartao.className="card";
-            divCards.appendChild(cartao);
-            cartao.id="cartao"+novoId;
+    let cartao = document.createElement("div");
+    cartao.className="card";
+    divCards.appendChild(cartao);
+    cartao.id="cartao"+novoId;
 
-            let corpoCartao = document.createElement("div");
-            corpoCartao.className="card-body";
-            cartao.appendChild(corpoCartao);
+    let corpoCartao = document.createElement("div");
+    corpoCartao.className="card-body";
+    cartao.appendChild(corpoCartao);
 
-            let titulo = document.createElement("h5");
-            corpoCartao.appendChild(titulo);
-            titulo.className="card-title";
-            titulo.innerText = novoTitulo;
+    let titulo = document.createElement("h5");
+    corpoCartao.appendChild(titulo);
+    titulo.className="card-title";
+    titulo.innerText = novoTitulo;
 
-            let linguagem = document.createElement("p");
-            corpoCartao.appendChild(linguagem);
-            linguagem.className = "card-text";
-            linguagem.innerText = novaLinguagem;
+    let linguagem = document.createElement("p");
+    corpoCartao.appendChild(linguagem);
+    linguagem.className = "card-text";
+    linguagem.innerText = novaLinguagem;
 
-            let categoria = document.createElement("p");
-            corpoCartao.appendChild(categoria);
-            categoria.className = "card-text";
-            categoria.innerText = novaCategoria;
+    let categoria = document.createElement("p");
+    corpoCartao.appendChild(categoria);
+    categoria.className = "card-text";
+    categoria.innerText = novaCategoria;
 
-            let descricao= document.createElement("p");
-            corpoCartao.appendChild(descricao);
-            descricao.className = "card-text";
-            descricao.innerText = novaDescricao;
+    let descricao= document.createElement("p");
+    corpoCartao.appendChild(descricao);
+    descricao.className = "card-text";
+    descricao.innerText = novaDescricao;
 
-            let editar = document.createElement("a");
-            corpoCartao.appendChild(editar);
-            editar.className = "btn btn-primary";
-            editar.id = "editar" + novoId;
-            editar.innerText = "Editar";
+    let editar = document.createElement("button");
+    corpoCartao.appendChild(editar);
+    editar.className = "btn btn-primary";
+    editar.id = "editar" + novoId;
+    editar.innerText = "Editar";
+    editar.setAttribute("data-bs-toggle","myModal");
+    editar.setAttribute("data-bs-target","#exampleModal");
 
-            let apagar = document.createElement("a");
-            corpoCartao.appendChild(apagar);
-            apagar.className = "btn btn-primary";
-            apagar.id = "apagar" + novoId;
-            apagar.innerText = "Apagar";
-            apagar.setAttribute('onclick','apagar (id)');
+    let apagar = document.createElement("button");
+    corpoCartao.appendChild(apagar);
+    apagar.className = "btn btn-primary";
+    apagar.id = "apagar" + novoId;
+    apagar.innerText = "Apagar";
+    apagar.setAttribute('onclick','apagar (id)');
 
-            let link = document.createElement("a");
-            corpoCartao.appendChild(link);
-            link.className = "btn btn-primary";
-            link.id = "link" + novoId;
-            link.innerText = "Link";
-            link.setAttribute('href', novoVideo);
-
+    if (novoVideo){
+        console.log("oi");
+        let link = document.createElement("a");
+        corpoCartao.appendChild(link);
+        link.className = "btn btn-primary";
+        link.id = "link" + novoId;
+        link.innerText = "Link";
+        link.setAttribute('href', novoVideo);
+    }
 }
 
 function apagar(id){
@@ -180,20 +135,17 @@ function apagar(id){
     };
     localStorage.setItem(KEY_BD, JSON.stringify(dadosLocalStorage));
     let valor = ("cartao"+identificacao);
-    console.log(valor)
     let filho = document.getElementById(valor);
     divCards.removeChild(filho); 
 }
 
 function pesquisar(value){
     let filtro = value;
-    console.log(filtro);
     let dadosLocalStorage = JSON.parse(localStorage.getItem("DevTips"));
     const divCards = document.getElementById("apresentacaoCartoes");
         if(filtro.trim()){
             divCards.innerHTML ="";
             const expReg = eval(`/${filtro.trim().replace(/[^\d\w]+/g,'.*')}/i`)
-            console.log(expReg);
             dadosLocalStorage = dadosLocalStorage.filter( dica => {
                 return expReg.test( dica.titulo ) || expReg.test( dica.categoria) || expReg.test( dica.descricao) || expReg.test( dica.linguagem)
             } )      
@@ -201,3 +153,10 @@ function pesquisar(value){
         inicializarCards(dadosLocalStorage);
         
     }
+
+    const myModal = document.getElementById('myModal')
+    const myInput = document.getElementById('editar1')
+    
+    myModal.addEventListener('shown.bs.modal', () => {
+      editar1.focus()
+    })

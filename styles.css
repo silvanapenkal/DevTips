@@ -18,6 +18,7 @@ body {
 #direita {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     gap: 8px;
     width: 50%;
     padding: 8px 8px 8px 8px;
@@ -39,9 +40,12 @@ body {
 }
 
 .totais {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: white;
     padding: 8px 8px 8px 8px;
-    width: 20vh;
+    width: 20vw;
     height: 80px;
     border-radius: 5px;
     font-style: oblique;
@@ -56,4 +60,9 @@ body {
     margin-right: 8px;
 }
 
-
+#palavraChave{
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    border-color: transparent;
+}
