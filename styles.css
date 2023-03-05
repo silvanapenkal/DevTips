@@ -37,7 +37,7 @@ body {
     flex-direction: row;
     justify-content: space-between;
     border-color: black;
-    gap: 40px;
+    gap: 2rem;
 }
 
 .totais {
@@ -55,6 +55,7 @@ body {
 .card {
     margin-top: 16px;
     margin-bottom: 16px;
+    width: 98%;
 }
 
 .btn-primary{
@@ -66,4 +67,23 @@ body {
     height: 40px;
     border-radius: 5px;
     border-color: transparent;
+}
+
+#apresentacaoCartoes{
+    overflow-y: scroll;
+    height: 80vh;
+}
+
+@media (max-width:905px){
+    body {
+        flex-direction: column;
+    }
+    #esquerda, #direita {
+        width: 100%;
+    }
+    #totais {
+        border-color: black;
+        float: right;
+        gap:2px;
+    }
 }

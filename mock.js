@@ -62,27 +62,27 @@ let listaRegistros = [
     "titulo" : "Use extensões",
     "video" : ""},
    {"categoria": "Comportamental",
-    "descricao": "Existem bons conteúdos que podem ser acessados de forma gratuita no youtube. Aproveite!";
+    "descricao": "Existem bons conteúdos que podem ser acessados de forma gratuita no youtube. Aproveite!",
     "id":11,
     "linguagem": "Aprendizado",
     "titulo": "Use o Youtube",
     "video": "https://www.youtube.com/",
     },
     {"categoria": "FullStack",
-    "descricao": "Para ser um programador você precisa entender as diversas camadas que estão por trás do que você está fazendo.";
+    "descricao": "Para ser um programador você precisa entender as diversas camadas que estão por trás do que você está fazendo.",
     "id":12,
     "linguagem": "Fundamentos",
     "titulo": "Tenha fundamentos",
     "video": "https://www.youtube.com/watch?v=22nd99SLgNA",
     },
     {"categoria": "FrontEnd",
-    "descricao": "Através das redes sociais você pode acompanhar os profissionais que são referencia em seu ramo. Um bom exemplo é o Diego da RockeatSeat, que é referência em React.";
+    "descricao": "Através das redes sociais você pode acompanhar os profissionais que são referencia em seu ramo. Um bom exemplo é o Diego da RockeatSeat, que é referência em React.",
     "id":13,
     "linguagem": "Conhecimento",
     "titulo": "Siga os bons",
     "video": "https://www.youtube.com/watch?v=pmXfvd6Zqg4",
     }
-]
+];
 
 localStorage.setItem("DevTips", JSON.stringify(listaRegistros));
 

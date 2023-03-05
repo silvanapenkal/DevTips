@@ -2,10 +2,21 @@ KEY_BD = "DevTips";
 let formulario = document.getElementById("formulario");
 let divCards = document.getElementById("apresentacaoCartoes");
 let listaRegistros = new Array;
+let identificacao;
+
+ // selecione o modal pelo seu ID
+ var modal = document.querySelector('#myModal');
+
+ // adicione um ouvinte de evento para o evento "show.bs.modal"
+ modal.addEventListener('show.bs.modal', function (event) {
+   // código para ser executado quando o modal é exibido
+   let titulo = document.getElementById("edicaoTitulo");
+    titulo.innerText = "oi";
+ });
 
 function ler(){
-    if (localStorage.hasOwnProperty("DevTips")) {
-        listaRegistros = JSON.parse(localStorage.getItem("DevTips"))
+    if (localStorage.hasOwnProperty(KEY_BD)) {
+        listaRegistros = JSON.parse(localStorage.getItem(KEY_BD))
     }
 }
 
@@ -24,6 +35,7 @@ formulario.addEventListener("submit", (e) => {
     })
     localStorage.setItem(KEY_BD, JSON.stringify(listaRegistros));
     acrescentarCard(id, titulo, linguagem, categoria, descricao, video);
+    formulario.reset();
 });
 
 window.addEventListener('load', () => {
@@ -32,13 +44,11 @@ window.addEventListener('load', () => {
 })
 
 function inicializarCards(dadosLocalStorage){
-
     dadosLocalStorage.map( (dica) => {
         acrescentarCard(dica.id, dica.titulo, dica.linguagem, dica.categoria, dica.descricao, dica.video)            
     })
     calcularTotais(dadosLocalStorage);     
 }
-
 
 function calcularTotais(dadosLocalStorage) {
 
@@ -57,8 +67,8 @@ function calcularTotais(dadosLocalStorage) {
     let fullstack = document.getElementById("somaFullstack");
     fullstack.innerText = totalFullstack;
 
-    let softskills = document.getElementById("somaSoftskills");
-    softskills.innerText = totalComportamental;
+    let comportamentais = document.getElementById("somaComportamental");
+    comportamentais.innerText = totalComportamental;
 
     let todas = document.getElementById("somaDicas");
     todas.innerText = total;
@@ -102,16 +112,16 @@ function acrescentarCard(novoId, novoTitulo, novaLinguagem, novaCategoria, novaD
     editar.innerText = "Editar";
     editar.setAttribute("data-bs-toggle","modal");
     editar.setAttribute("data-bs-target","#myModal");
+    editar.setAttribute("onclick", "editar(id)");
 
     let apagar = document.createElement("button");
     corpoCartao.appendChild(apagar);
     apagar.className = "btn btn-primary";
     apagar.id = "apagar" + novoId;
     apagar.innerText = "Apagar";
-    apagar.setAttribute('onclick','apagar (id)');
+    apagar.setAttribute('onclick','apagar(id)');
 
     if (novoVideo){
-        console.log("oi");
         let link = document.createElement("a");
         corpoCartao.appendChild(link);
         link.className = "btn btn-primary";
@@ -122,7 +132,7 @@ function acrescentarCard(novoId, novoTitulo, novaLinguagem, novaCategoria, novaD
 }
 
 function apagar(id){
-    let dadosLocalStorage = JSON.parse(localStorage.getItem("DevTips"));
+    let dadosLocalStorage = JSON.parse(localStorage.getItem(KEY_BD));
     let tamanhoId = id.length;
     let identificacao = id.slice(6,tamanhoId);
     if (window.confirm(`Você tem certeza que quer apagar a dica ${identificacao}`)) {               
@@ -135,9 +145,9 @@ function apagar(id){
     calcularTotais(dadosLocalStorage);
 }
 
-function pesquisar(value){
+function pesquisar(value) {
     let filtro = value;
-    let dadosLocalStorage = JSON.parse(localStorage.getItem("DevTips"));
+    let dadosLocalStorage = JSON.parse(localStorage.getItem(KEY_BD));
     const divCards = document.getElementById("apresentacaoCartoes");
     if(filtro.trim()){
         divCards.innerHTML ="";
@@ -147,4 +157,35 @@ function pesquisar(value){
         })
     }
     inicializarCards(dadosLocalStorage);
+}
+
+function editar(id) {
+    let dadosLocalStorage = JSON.parse(localStorage.getItem(KEY_BD));
+    let tamanhoId = id.length;
+    identificacao = id.slice(6,tamanhoId);
+
+    let registro = dadosLocalStorage.filter( dica => { return dica.id == identificacao } );
+    
+    document.getElementById("edicaoTitulo").value = registro[0].titulo;
+    document.getElementById("edicaoDescricao").value = registro[0].descricao;
+    document.getElementById("edicaoVideo").value = registro[0].video;
+    document.getElementById("edicaoLinguagem").value = registro[0].linguagem;
+    document.getElementById("edicaoCategoria").value = registro[0].categoria;
+
+}
+
+function editaDica() {
+    let dicaEditada = {
+        "id": identificacao,
+        "categoria": document.getElementById("edicaoCategoria").value,
+        "titulo": document.getElementById("edicaoTitulo").value,
+        "video": document.getElementById("edicaoVideo").value,
+        "descricao": document.getElementById("edicaoDescricao").value,
+        "linguagem": document.getElementById("edicaoLinguagem").value
+    }
+    let posicao = dadosLocalStorage.findIndex(localStorage.id == dicaEditada.id);
+    let dadosLocalStorage = JSON.parse(localStorage.getItem(KEY_BD));
+    dadosLocalStorage.splice(posicao, 1, dicaEditada);
+    localStorage.setItem(KEY_BD, JSON.stringify(dadosLocalStorage));
+    calcularTotais(dadosLocalStorage);
 }
