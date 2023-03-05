@@ -29,10 +29,6 @@ window.addEventListener('load', () => {
     inicializarCards(listaRegistros);
 })
 
-// function carregar(){
-//     dadosLocalStorage?inicializarCards():null;
-// }
-
 function ler(){
     const localStorage = localStorage.getItem(KEY_BD)
     if(localStorage){
@@ -41,19 +37,11 @@ function ler(){
     inicializarCards(listaRegistros)
 }
 
-
-// function pesquisar(value){
-//     FILTRO = value;
-//     listar();
-// }
-
 function gravar(){
     localStorage.setItem(KEY_BD, JSON.stringify(listaRegistros) )
 }
 
 function inicializarCards(dadosLocalStorage){
-
-    // let dadosLocalStorage = dadosLocalStorage;
 
     dadosLocalStorage.map( (dica,index) => {
       
@@ -114,11 +102,6 @@ function inicializarCards(dadosLocalStorage){
     totalComportamental =  (dadosLocalStorage.filter( dica => { return dica.categoria == "Comportamental" } )).length;
     total =  dadosLocalStorage.length;
 
-    listaBackend =  (dadosLocalStorage.filter( dica => { return dica.categoria = "BackEnd" } ));
-    console.log(listaBackend);
-
- 
-
     let backend = document.getElementById("somaBackend");
     backend.innerText = totalBackend;
 
@@ -132,11 +115,7 @@ function inicializarCards(dadosLocalStorage){
     softskills.innerText = totalComportamental;
 
     let todas = document.getElementById("somaDicas");
-    todas.innerText = total;
-
-
-
-    
+    todas.innerText = total;    
 }
 
 function acrescentarCard(novoId, novoTitulo, novaLinguagem, novaCategoria, novaDescricao, novoVideo){
@@ -190,7 +169,6 @@ function acrescentarCard(novoId, novoTitulo, novaLinguagem, novaCategoria, novaD
             link.innerText = "Link";
             link.setAttribute('href', novoVideo);
 
-
 }
 
 function apagar(id){
@@ -212,18 +190,13 @@ function pesquisar(value){
     console.log(filtro);
     let dadosLocalStorage = JSON.parse(localStorage.getItem("DevTips"));
     const divCards = document.getElementById("apresentacaoCartoes");
-    
-        
-
         if(filtro.trim()){
             divCards.innerHTML ="";
             const expReg = eval(`/${filtro.trim().replace(/[^\d\w]+/g,'.*')}/i`)
             console.log(expReg);
             dadosLocalStorage = dadosLocalStorage.filter( dica => {
                 return expReg.test( dica.titulo ) || expReg.test( dica.categoria) || expReg.test( dica.descricao) || expReg.test( dica.linguagem)
-            } )
-            // } 
-            
+            } )      
         }
         inicializarCards(dadosLocalStorage);
         
