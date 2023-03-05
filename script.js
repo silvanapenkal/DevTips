@@ -9,10 +9,6 @@ function ler(){
     }
 }
 
-function gravar(){
-    localStorage.setItem(KEY_BD, JSON.stringify(listaRegistros) )
-}
-
 formulario.addEventListener("submit", (e) => {
     e.preventDefault();
     ler();
@@ -26,7 +22,7 @@ formulario.addEventListener("submit", (e) => {
     listaRegistros.push({
         id, titulo, linguagem, categoria, descricao, video
     })
-    gravar();
+    localStorage.setItem(KEY_BD, JSON.stringify(listaRegistros));
     acrescentarCard(id, titulo, linguagem, categoria, descricao, video);
 });
 
@@ -37,9 +33,14 @@ window.addEventListener('load', () => {
 
 function inicializarCards(dadosLocalStorage){
 
-    dadosLocalStorage.map( (dica,index) => {
+    dadosLocalStorage.map( (dica) => {
         acrescentarCard(dica.id, dica.titulo, dica.linguagem, dica.categoria, dica.descricao, dica.video)            
     })
+    calcularTotais(dadosLocalStorage);     
+}
+
+
+function calcularTotais(dadosLocalStorage) {
 
     totalBackend =  (dadosLocalStorage.filter( dica => { return dica.categoria == "BackEnd" } )).length;
     totalFrontend =  (dadosLocalStorage.filter( dica => { return dica.categoria == "FrontEnd" } )).length;
@@ -60,7 +61,7 @@ function inicializarCards(dadosLocalStorage){
     softskills.innerText = totalComportamental;
 
     let todas = document.getElementById("somaDicas");
-    todas.innerText = total;    
+    todas.innerText = total;
 }
 
 function acrescentarCard(novoId, novoTitulo, novaLinguagem, novaCategoria, novaDescricao, novoVideo){
@@ -127,10 +128,11 @@ function apagar(id){
     if (window.confirm(`Você tem certeza que quer apagar a dica ${identificacao}`)) {               
         dadosLocalStorage = dadosLocalStorage.filter( dica => { return dica.id != identificacao } );
     };
-    gravar();
+    localStorage.setItem(KEY_BD, JSON.stringify(dadosLocalStorage));
     let valor = ("cartao"+identificacao);
     let filho = document.getElementById(valor);
     divCards.removeChild(filho); 
+    calcularTotais(dadosLocalStorage);
 }
 
 function pesquisar(value){
