@@ -1,8 +1,10 @@
 KEY_BD = "DevTips";
 let formulario = document.getElementById("formulario");
+let formularioEdicao = document.getElementById("formularioEdicao");
 let divCards = document.getElementById("apresentacaoCartoes");
 let listaRegistros = new Array;
 let identificacao;
+let modal = document.getElementById("myModal");
 
 function ler(){
     if (localStorage.hasOwnProperty(KEY_BD)) {
@@ -28,17 +30,23 @@ formulario.addEventListener("submit", (e) => {
     formulario.reset();
 });
 
+formularioEdicao.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let titulo = document.getElementById("edicaoTitulo").value;
+    let linguagem = document.getElementById("edicaoLinguagem").value;
+    let categoria = document.getElementById("edicaoCategoria").value;
+    let descricao = document.getElementById("edicaoDescricao").value;
+    let video = document.getElementById("edicaoVideo").value;
+    editaDica(titulo, linguagem, categoria, descricao, video)
+});
+
 window.addEventListener('load', () => {
     ler();
     inicializarCards(listaRegistros);
 })
 
 function inicializarCards(dadosLocalStorage){
-    console.log(dadosLocalStorage);
-    dadosLocalStorage = dadosLocalStorage.sort( (a, b) => {
-        return parseInt(a.id) < parseInt(b.id) ? -1 : 1
-    })
-    console.log(dadosLocalStorage);
+
     dadosLocalStorage.map( (dica) => {
         acrescentarCard(dica.id, dica.titulo, dica.linguagem, dica.categoria, dica.descricao, dica.video)            
     })
@@ -88,12 +96,12 @@ function acrescentarCard(novoId, novoTitulo, novaLinguagem, novaCategoria, novaD
     let linguagem = document.createElement("p");
     corpoCartao.appendChild(linguagem);
     linguagem.className = "card-text";
-    linguagem.innerText = novaLinguagem;
+    linguagem.innerText = `Linguagem/Skill: ${novaLinguagem}`;
 
     let categoria = document.createElement("p");
     corpoCartao.appendChild(categoria);
     categoria.className = "card-text";
-    categoria.innerText = novaCategoria;
+    categoria.innerText = `Categoria: ${novaCategoria}`;
 
     let descricao= document.createElement("p");
     corpoCartao.appendChild(descricao);
@@ -170,19 +178,22 @@ function editar(id) {
 }
 
 function editaDica(titulo, linguagem, categoria, descricao, video) {
-    e.preventDefault();
-    let dicaEditada = {
-        "id": identificacao,
-        "categoria": categoria,
-        "titulo": titulo,
-        "video": video,
-        "descricao": descricao,
-        "linguagem": linguagem
-    }
-    console.log(dicaEditada);
-    let posicao = dadosLocalStorage.findIndex(localStorage.id == dicaEditada.id);
     let dadosLocalStorage = JSON.parse(localStorage.getItem(KEY_BD));
-    dadosLocalStorage = dadosLocalStorage.splice(posicao, 1, dicaEditada);
+
+    dadosLocalStorage.forEach((dica,index) => {
+        if(dica.id == identificacao){
+            dadosLocalStorage[index].titulo = titulo;
+            dadosLocalStorage[index].linguagem = linguagem;
+            dadosLocalStorage[index].categoria = categoria;
+            dadosLocalStorage[index].descricao = descricao;
+            dadosLocalStorage[index].video = video;
+        }
+    });
+
     localStorage.setItem(KEY_BD, JSON.stringify(dadosLocalStorage));
+
     inicializarCards(dadosLocalStorage);
+
+    
+
 }
