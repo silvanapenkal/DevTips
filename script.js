@@ -1,10 +1,11 @@
 KEY_BD = "DevTips";
-let formulario = document.getElementById("formulario");
-let formularioEdicao = document.getElementById("formularioEdicao");
-let divCards = document.getElementById("apresentacaoCartoes");
+const formulario = document.getElementById("formulario");
+const formularioEdicao = document.getElementById("formularioEdicao");
+const divCards = document.getElementById("apresentacaoCartoes");
+const modalEdicao = document.getElementById("edicaoModal");
 let listaRegistros = new Array;
 let identificacao;
-let modal = document.getElementById("myModal");
+
 
 function ler(){
     if (localStorage.hasOwnProperty(KEY_BD)) {
@@ -17,26 +18,27 @@ formulario.addEventListener("submit", (e) => {
     ler();
     let id = 1;
     (listaRegistros.length>0) ? id = listaRegistros[listaRegistros.length-1].id+1 : null;
-    let titulo = document.getElementById("titulo").value;
-    let linguagem = document.getElementById("linguagem").value;
-    let categoria = document.getElementById("categoria").value;
-    let descricao = document.getElementById("descricao").value;
-    let video = document.getElementById("video").value;
+    const titulo = document.getElementById("titulo").value;
+    const linguagem = document.getElementById("linguagem").value;
+    const categoria = document.getElementById("categoria").value;
+    const descricao = document.getElementById("descricao").value;
+    const video = document.getElementById("video").value;
     listaRegistros.push({
         id, titulo, linguagem, categoria, descricao, video
     })
     localStorage.setItem(KEY_BD, JSON.stringify(listaRegistros));
     acrescentarCard(id, titulo, linguagem, categoria, descricao, video);
+    calcularTotais(listaRegistros);
     formulario.reset();
 });
 
 formularioEdicao.addEventListener("submit", (e) => {
     e.preventDefault();
-    let titulo = document.getElementById("edicaoTitulo").value;
-    let linguagem = document.getElementById("edicaoLinguagem").value;
-    let categoria = document.getElementById("edicaoCategoria").value;
-    let descricao = document.getElementById("edicaoDescricao").value;
-    let video = document.getElementById("edicaoVideo").value;
+    const titulo = document.getElementById("edicaoTitulo").value;
+    const linguagem = document.getElementById("edicaoLinguagem").value;
+    const categoria = document.getElementById("edicaoCategoria").value;
+    const descricao = document.getElementById("edicaoDescricao").value;
+    const video = document.getElementById("edicaoVideo").value;
     editaDica(titulo, linguagem, categoria, descricao, video)
 });
 
@@ -55,69 +57,69 @@ function inicializarCards(dadosLocalStorage){
 
 function calcularTotais(dadosLocalStorage) {
 
-    totalBackend =  (dadosLocalStorage.filter( dica => { return dica.categoria == "BackEnd" } )).length;
-    totalFrontend =  (dadosLocalStorage.filter( dica => { return dica.categoria == "FrontEnd" } )).length;
-    totalFullstack =  (dadosLocalStorage.filter( dica => { return dica.categoria == "FullStack" } )).length;
-    totalComportamental =  (dadosLocalStorage.filter( dica => { return dica.categoria == "Comportamental" } )).length;
-    total =  dadosLocalStorage.length;
+    const totalBackend =  (dadosLocalStorage.filter( dica => { return dica.categoria == "BackEnd" } )).length;
+    const totalFrontend =  (dadosLocalStorage.filter( dica => { return dica.categoria == "FrontEnd" } )).length;
+    const totalFullstack =  (dadosLocalStorage.filter( dica => { return dica.categoria == "FullStack" } )).length;
+    const totalComportamental =  (dadosLocalStorage.filter( dica => { return dica.categoria == "Comportamental" } )).length;
+    const total =  dadosLocalStorage.length;
 
-    let backend = document.getElementById("somaBackend");
+    const backend = document.getElementById("somaBackend");
     backend.innerText = totalBackend;
 
-    let frontend = document.getElementById("somaFrontend");
+    const frontend = document.getElementById("somaFrontend");
     frontend.innerText = totalFrontend;
 
-    let fullstack = document.getElementById("somaFullstack");
+    const fullstack = document.getElementById("somaFullstack");
     fullstack.innerText = totalFullstack;
 
-    let comportamentais = document.getElementById("somaComportamental");
+    const comportamentais = document.getElementById("somaComportamental");
     comportamentais.innerText = totalComportamental;
 
-    let todas = document.getElementById("somaDicas");
+    const todas = document.getElementById("somaDicas");
     todas.innerText = total;
 }
 
 function acrescentarCard(novoId, novoTitulo, novaLinguagem, novaCategoria, novaDescricao, novoVideo){
 
-    let cartao = document.createElement("div");
+    const cartao = document.createElement("div");
     cartao.className="card";
     divCards.appendChild(cartao);
     cartao.id="cartao"+novoId;
 
-    let corpoCartao = document.createElement("div");
+    const corpoCartao = document.createElement("div");
     corpoCartao.className="card-body";
     cartao.appendChild(corpoCartao);
 
-    let titulo = document.createElement("h2");
+    const titulo = document.createElement("h2");
     corpoCartao.appendChild(titulo);
     titulo.className="card-title";
     titulo.innerText = novoTitulo;
 
-    let linguagem = document.createElement("p");
+    const linguagem = document.createElement("p");
     corpoCartao.appendChild(linguagem);
     linguagem.className = "card-text";
     linguagem.innerText = `Linguagem/Skill: ${novaLinguagem}`;
 
-    let categoria = document.createElement("p");
+    const categoria = document.createElement("p");
     corpoCartao.appendChild(categoria);
     categoria.className = "card-text";
     categoria.innerText = `Categoria: ${novaCategoria}`;
 
-    let descricao= document.createElement("p");
+    const descricao= document.createElement("p");
     corpoCartao.appendChild(descricao);
     descricao.className = "card-text";
     descricao.innerText = novaDescricao;
 
-    let editar = document.createElement("button");
+    const editar = document.createElement("button");
     corpoCartao.appendChild(editar);
     editar.className = "btn btn-primary";
     editar.id = "editar" + novoId;
     editar.innerText = "Editar";
     editar.setAttribute("data-bs-toggle","modal");
-    editar.setAttribute("data-bs-target","#myModal");
+    editar.setAttribute("data-bs-target","#edicaoModal");
     editar.setAttribute("onclick", "editar(id)");
 
-    let apagar = document.createElement("button");
+    const apagar = document.createElement("button");
     corpoCartao.appendChild(apagar);
     apagar.className = "btn btn-primary";
     apagar.id = "apagar" + novoId;
@@ -125,7 +127,7 @@ function acrescentarCard(novoId, novoTitulo, novaLinguagem, novaCategoria, novaD
     apagar.setAttribute('onclick','apagar(id)');
 
     if (novoVideo){
-        let link = document.createElement("a");
+        const link = document.createElement("a");
         corpoCartao.appendChild(link);
         link.className = "btn btn-primary";
         link.id = "link" + novoId;
@@ -136,20 +138,20 @@ function acrescentarCard(novoId, novoTitulo, novaLinguagem, novaCategoria, novaD
 
 function apagar(id){
     let dadosLocalStorage = JSON.parse(localStorage.getItem(KEY_BD));
-    let tamanhoId = id.length;
+    const tamanhoId = id.length;
     let identificacao = id.slice(6,tamanhoId);
     if (window.confirm(`Você tem certeza que quer apagar essa dica?`)) {               
         dadosLocalStorage = dadosLocalStorage.filter( dica => { return dica.id != identificacao } );
     };
     localStorage.setItem(KEY_BD, JSON.stringify(dadosLocalStorage));
-    let valor = ("cartao"+identificacao);
-    let filho = document.getElementById(valor);
+    const valor = ("cartao"+identificacao);
+    const filho = document.getElementById(valor);
     divCards.removeChild(filho); 
     inicializarCards(dadosLocalStorage);
 }
 
 function pesquisar(value) {
-    let filtro = value;
+    const filtro = value;
     let dadosLocalStorage = JSON.parse(localStorage.getItem(KEY_BD));
     const divCards = document.getElementById("apresentacaoCartoes");
     if(filtro.trim()){
@@ -163,11 +165,11 @@ function pesquisar(value) {
 }
 
 function editar(id) {
-    let dadosLocalStorage = JSON.parse(localStorage.getItem(KEY_BD));
-    let tamanhoId = id.length;
+    const dadosLocalStorage = JSON.parse(localStorage.getItem(KEY_BD));
+    const tamanhoId = id.length;
     identificacao = id.slice(6,tamanhoId);
 
-    let registro = dadosLocalStorage.filter( dica => { return dica.id == identificacao } );
+    const registro = dadosLocalStorage.filter( dica => { return dica.id == identificacao } );
     
     document.getElementById("edicaoTitulo").value = registro[0].titulo;
     document.getElementById("edicaoDescricao").value = registro[0].descricao;
@@ -178,7 +180,7 @@ function editar(id) {
 }
 
 function editaDica(titulo, linguagem, categoria, descricao, video) {
-    let dadosLocalStorage = JSON.parse(localStorage.getItem(KEY_BD));
+    const dadosLocalStorage = JSON.parse(localStorage.getItem(KEY_BD));
 
     dadosLocalStorage.forEach((dica,index) => {
         if(dica.id == identificacao){
@@ -191,8 +193,6 @@ function editaDica(titulo, linguagem, categoria, descricao, video) {
     });
 
     localStorage.setItem(KEY_BD, JSON.stringify(dadosLocalStorage));
-
-    // inicializarCards(dadosLocalStorage);
 
     location.reload();
 

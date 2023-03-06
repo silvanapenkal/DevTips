@@ -87,9 +87,12 @@ salvamento em localStorage ou em um servidor utilizando json-server.
 * Responsividade
 * pesquisa dinamicamente sem precisar dos botões de buscar e limpar
 * pesquisa em todos os campos, não só no título
+* modal de edição
 
 ## SUGESTÕES DE MELHORIA
+(que infelizmente não consegui fazer a tempo)
 
-* separação em módulos (infelizmente não consegui fazer a tempo)
+* separação em módulos 
 * mensagens de sucesso
 * implementação de tratamento de exceções
+* fechar o modal de forma mais elegante que não recarregando a página - não consegui descobrir como fazer
