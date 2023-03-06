@@ -46,7 +46,7 @@ window.addEventListener('load', () => {
 })
 
 function inicializarCards(dadosLocalStorage){
-
+    divCards.innerHTML="";
     dadosLocalStorage.map( (dica) => {
         acrescentarCard(dica.id, dica.titulo, dica.linguagem, dica.categoria, dica.descricao, dica.video)            
     })
@@ -88,7 +88,7 @@ function acrescentarCard(novoId, novoTitulo, novaLinguagem, novaCategoria, novaD
     corpoCartao.className="card-body";
     cartao.appendChild(corpoCartao);
 
-    let titulo = document.createElement("h5");
+    let titulo = document.createElement("h2");
     corpoCartao.appendChild(titulo);
     titulo.className="card-title";
     titulo.innerText = novoTitulo;
@@ -192,8 +192,8 @@ function editaDica(titulo, linguagem, categoria, descricao, video) {
 
     localStorage.setItem(KEY_BD, JSON.stringify(dadosLocalStorage));
 
-    inicializarCards(dadosLocalStorage);
+    // inicializarCards(dadosLocalStorage);
 
-    
+    location.reload();
 
 }
