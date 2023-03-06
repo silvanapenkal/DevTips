@@ -83,5 +83,13 @@ salvamento em localStorage ou em um servidor utilizando json-server.
 
 ## EXTRAS
 
-* 100% de acessibilidade na avaliação do Lighthouse
+* 100% em todos os itens na avaliação do Lighthouse (acessibilidade, seo, performance, best practice )
 * Responsividade
+* pesquisa dinamicamente sem precisar dos botões de buscar e limpar
+* pesquisa em todos os campos, não só no título
+
+## SUGESTÕES DE MELHORIA
+
+* separação em módulos (infelizmente não consegui fazer a tempo)
+* mensagens de sucesso
+* implementação de tratamento de exceções
