@@ -39,7 +39,7 @@ formularioEdicao.addEventListener("submit", (e) => {
     const categoria = document.getElementById("edicaoCategoria").value;
     const descricao = document.getElementById("edicaoDescricao").value;
     const video = document.getElementById("edicaoVideo").value;
-    editaDica(titulo, linguagem, categoria, descricao, video)
+    editarDica(titulo, linguagem, categoria, descricao, video)
 });
 
 window.addEventListener('load', () => {
@@ -117,7 +117,7 @@ function acrescentarCard(novoId, novoTitulo, novaLinguagem, novaCategoria, novaD
     editar.innerText = "Editar";
     editar.setAttribute("data-bs-toggle","modal");
     editar.setAttribute("data-bs-target","#edicaoModal");
-    editar.setAttribute("onclick", "editar(id)");
+    editar.setAttribute("onclick", "abrirModalEdicao(id)");
 
     const apagar = document.createElement("button");
     corpoCartao.appendChild(apagar);
@@ -164,7 +164,7 @@ function pesquisar(value) {
     inicializarCards(dadosLocalStorage);
 }
 
-function editar(id) {
+function abrirModalEdicao(id) {
     const dadosLocalStorage = JSON.parse(localStorage.getItem(KEY_BD));
     const tamanhoId = id.length;
     identificacao = id.slice(6,tamanhoId);
@@ -179,7 +179,7 @@ function editar(id) {
 
 }
 
-function editaDica(titulo, linguagem, categoria, descricao, video) {
+function editarDica(titulo, linguagem, categoria, descricao, video) {
     const dadosLocalStorage = JSON.parse(localStorage.getItem(KEY_BD));
 
     dadosLocalStorage.forEach((dica,index) => {
